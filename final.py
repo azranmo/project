@@ -43,7 +43,7 @@ class Model:
 
 
 def main():
-
+    print("gg")
     model = Model()
     model.build()
 
