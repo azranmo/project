@@ -44,6 +44,7 @@ class Model:
 
 def main():
     print("gg")
+    print("fff")
     model = Model()
     model.build()
 
