@@ -1,15 +1,17 @@
+from tkinter import *
 import xlrd
 import pandas as pd
-
-
+import tkinter.filedialog
+import tkinter.messagebox
 
 class Model:
-
-    def readFromCSV(self):
-        # Assign spreadsheet filename to file
-        file = 'C:\esti.csv'
-        df = pd.read_csv(file)
-        return df
+    # The function load csv file
+    def load_csv(self, filePath):
+        try:
+            df = pd.read_csv(filePath)
+            return df
+        except:
+            tkinter.messageBox.showerror("project", "the path " + filePath + " is not exist")
 
     def devide(self,df):
         for index, row in df.iterrows():
@@ -21,33 +23,39 @@ class Model:
         # group = df.set_index('TIME').filter(like='#', axis=0)
         # print(group)
 
-
-
-
-
-
-
-
-
-
-
-
-    def build(self):
-        df = self.readFromCSV()
+    def build(self,filePath):
+        df = self.load_csv(filePath)
         self.devide(df)
 
 
-
-
-
-
-
-def main():
-    print("gg")
-    print("fff")
+class project:
     model = Model()
-    model.build()
 
+    # The function give the user the search for the path
+    def browse(self):
+        file = tkinter.filedialog.askopenfilename()
+        self.var.set(file)
 
-if __name__ == "__main__":
-    main()
+    def build(self):
+        filePath = self.var.get()
+        self.model.build(filePath)
+
+    # The function init the gui
+    def __init__(self, master):
+        self.master = master
+        self.master.title("out project")
+        self.labelDir = Label(master, text="file Path")
+        self.var = StringVar()
+        dirname = Entry(master, textvariable=self.var)
+        self.browse_button = Button(master, text="Browse", command=lambda: self.browse())  # button browse
+        self.build_button = Button(master, text="Build", command=lambda: self.build())  # button build
+        # self.classify_button = Button(master, text="Classify", command=lambda: self.classify())
+        self.labelDir.grid(row=0, column=0, sticky=W)
+        dirname.grid(row=0, column=1, columnspan=2, sticky=W + E)
+        self.browse_button.grid(row=0, column=3)
+        self.build_button.grid(row=2, column=1)
+        # self.classify_button.grid(row=3, column=1)
+
+root = Tk()
+my_gui = project(root)
+root.mainloop()
