@@ -14,9 +14,17 @@ class Model:
             tkinter.messageBox.showerror("project", "the path " + filePath + " is not exist")
 
     def devide(self,df):
+        userIndex = 2
+        iterateIndex = 1
+        list = []
         for index, row in df.iterrows():
-            if '#' in row['TIME']:
+            partofrow = '#' + str(userIndex) + '.' + str(iterateIndex)
+            if partofrow in row['TIME']:
+                iterateIndex = iterateIndex+1
                 print(row)
+            # else: list.append(row)
+
+
         # for r in df.set_index('TIME'):
         #     if r.filter(like='#', axis=0):
         #         print("bllala")
@@ -26,7 +34,6 @@ class Model:
     def build(self,filePath):
         df = self.load_csv(filePath)
         self.devide(df)
-
 
 class project:
     model = Model()
@@ -55,6 +62,7 @@ class project:
         self.browse_button.grid(row=0, column=3)
         self.build_button.grid(row=2, column=1)
         # self.classify_button.grid(row=3, column=1)
+
 
 root = Tk()
 my_gui = project(root)
