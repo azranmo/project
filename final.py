@@ -16,20 +16,38 @@ class Model:
     def devide(self,df):
         userIndex = 2
         iterateIndex = 1
-        list = []
-        for index, row in df.iterrows():
-            partofrow = '#' + str(userIndex) + '.' + str(iterateIndex)
-            if partofrow in row['TIME']:
-                iterateIndex = iterateIndex+1
-                print(row)
-            # else: list.append(row)
+        listColorGame = []
+        listBricksGame = []
+        listSearchFacebook = []
+        listMail = []
+        users = {}
+        userDict = {}
+        for row in df.itertuples():
+            indexRow = row[0]
+            timeRow = row[1]
+            if '#' + str(userIndex) in timeRow: #new user
+                userIndex = userIndex + 1
+                iterateIndex = 1
+                listColorGame = []
+                listBricksGame = []
+                listSearchFacebook = []
+                listMail = []
+            elif '#' + str(userIndex-1) + '.' + str(iterateIndex+1) in timeRow:
+                iterateIndex = iterateIndex + 1
+            else:
+                if iterateIndex==1:
+                    listColorGame.append(row)
+                elif iterateIndex==2:
+                    listBricksGame.append(row)
+                elif iterateIndex==3:
+                    listSearchFacebook.append(row)
+                else:
+                    listMail.append(row)
 
-
-        # for r in df.set_index('TIME'):
-        #     if r.filter(like='#', axis=0):
-        #         print("bllala")
-        # group = df.set_index('TIME').filter(like='#', axis=0)
-        # print(group)
+        print(listColorGame)
+        print(listBricksGame)
+        print(listSearchFacebook)
+        print(listMail)
 
     def build(self,filePath):
         df = self.load_csv(filePath)
