@@ -67,6 +67,7 @@ class Model:
         dfTouch = self.load_csv(filePathTouches)
         users = self.devide(dfTouch)
         dfQuest = self.load_csv(filePathQust)
+        
 
 class project:
     model = Model()
