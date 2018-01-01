@@ -53,17 +53,19 @@ class Model:
                 else:
                     listMail.append(row)
 
-        print(listColorGame)
-        print(listBricksGame)
-        print(listSearchFacebook)
-        print(listMail)
-        print("****************")
-        print(users)
+        dictOperations = {}
+        dictOperations['listColorGame'] = listColorGame
+        dictOperations['listBricksGame'] = listBricksGame
+        dictOperations['listSearchFacebook'] = listSearchFacebook
+        dictOperations['listMail'] = listMail
+        userID = userIndex - 1
+        users[str(userID)] = dictOperations
+        return users
 
 
     def build(self,filePath):
         df = self.load_csv(filePath)
-        self.devide(df)
+        users = self.devide(df)
 
 class project:
     model = Model()
