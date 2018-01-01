@@ -4,7 +4,6 @@ import pandas as pd
 import tkinter.filedialog
 import tkinter.messagebox
 
-# hello moran
 class Model:
     # The function load csv file
     def load_csv(self, filePath):
@@ -22,17 +21,26 @@ class Model:
         listSearchFacebook = []
         listMail = []
         users = {}
-        userDict = {}
+        firstIter = True
         for row in df.itertuples():
             indexRow = row[0]
             timeRow = row[1]
             if '#' + str(userIndex) in timeRow: #new user
+                if firstIter==False:
+                    dictOperations = {}
+                    dictOperations['listColorGame'] = listColorGame
+                    dictOperations['listBricksGame'] = listBricksGame
+                    dictOperations['listSearchFacebook'] = listSearchFacebook
+                    dictOperations['listMail'] = listMail
+                    userID = userIndex - 1
+                    users[str(userID)] = dictOperations
                 userIndex = userIndex + 1
                 iterateIndex = 1
                 listColorGame = []
                 listBricksGame = []
                 listSearchFacebook = []
                 listMail = []
+                firstIter = False
             elif '#' + str(userIndex-1) + '.' + str(iterateIndex+1) in timeRow:
                 iterateIndex = iterateIndex + 1
             else:
@@ -49,6 +57,9 @@ class Model:
         print(listBricksGame)
         print(listSearchFacebook)
         print(listMail)
+        print("****************")
+        print(users)
+
 
     def build(self,filePath):
         df = self.load_csv(filePath)
