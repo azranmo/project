@@ -63,9 +63,10 @@ class Model:
         return users
 
 
-    def build(self,filePath):
-        df = self.load_csv(filePath)
-        users = self.devide(df)
+    def build(self,filePathTouches, filePathQust):
+        dfTouch = self.load_csv(filePathTouches)
+        users = self.devide(dfTouch)
+        dfQuest = self.load_csv(filePathQust)
 
 class project:
     model = Model()
