@@ -69,7 +69,6 @@ class Model:
 
 class project:
     model = Model()
-
     # The function give the user the search for the path
     def browse(self):
         file = tkinter.filedialog.askopenfilename()
