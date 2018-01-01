@@ -13,7 +13,6 @@ class Model:
         except:
             tkinter.messageBox.showerror("project", "the path " + filePath + " is not exist")
 
-
     def devide(self,df):
         userIndex = 2
         iterateIndex = 1
@@ -64,10 +63,9 @@ class Model:
         return users
 
 
-    def build(self,filePathTouches, filePathQuest):
-        df = self.load_csv(filePathTouches)
+    def build(self,filePath):
+        df = self.load_csv(filePath)
         users = self.devide(df)
-        dfQuest = self.load_csv(filePathQuest)
 
 class project:
     model = Model()
