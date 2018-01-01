@@ -3,6 +3,7 @@ import xlrd
 import pandas as pd
 import tkinter.filedialog
 import tkinter.messagebox
+import csv
 
 class Model:
     # The function load csv file
@@ -62,12 +63,22 @@ class Model:
         users[str(userID)] = dictOperations
         return users
 
+    def extractFeaturesToStroke(self,listVector):
+        print(listVector)
+
+    def extractFeatures(self,users):
+        for key, value in users.items():
+            userid = key
+            dictOperation = value
+            for key, value in dictOperation.items():
+                listName = key
+                listVector = value
+                self.extractFeaturesToStroke(listVector)
+
     def build(self, filePathTouches, filePathQust):
         dfTouch = self.load_csv(filePathTouches)
         users = self.devide(dfTouch)
-        #read the quest file
-        dfQuest = self.load_csv(filePathQust)
-        
+        self.extractFeatures(users)
 
 class project:
     model = Model()
@@ -76,6 +87,10 @@ class project:
     def browse(self):
         file = tkinter.filedialog.askopenfilename()
         self.var.set(file)
+
+    def browseQuest(self):
+        file = tkinter.filedialog.askopenfilename()
+        self.var2.set(file)
 
     def build(self):
         touchesPath = self.var.get()
@@ -93,14 +108,16 @@ class project:
         self.labelDir2 = Label(master, text="quest Path")
         self.var2 = StringVar()
         dirname2 = Entry(master, textvariable=self.var2)
-        self.browse_button = Button(master, text="Browse", command=lambda: self.browse())  # button browse
+        self.browse_button = Button(master, text="Browse touches", command=lambda: self.browse())  # button browse
+        self.browse_button2 = Button(master, text="Browse quests", command=lambda: self.browseQuest())  # button browse
         self.build_button = Button(master, text="Build", command=lambda: self.build())  # button build
         # self.classify_button = Button(master, text="Classify", command=lambda: self.classify())
         self.labelDir.grid(row=0, column=0, sticky=W)
-        self.labelDir.grid(row=1, column=0, sticky=W)
+        self.labelDir2.grid(row=1, column=0, sticky=W)
         dirname.grid(row=0, column=1, columnspan=2, sticky=W + E)
         dirname2.grid(row=1, column=1, columnspan=2, sticky=W + E)
         self.browse_button.grid(row=0, column=3)
+        self.browse_button2.grid(row=1, column=3)
         self.build_button.grid(row=2, column=1)
         # self.classify_button.grid(row=3, column=1)
 
