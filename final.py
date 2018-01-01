@@ -65,6 +65,7 @@ class Model:
     def build(self, filePathTouches, filePathQust):
         dfTouch = self.load_csv(filePathTouches)
         users = self.devide(dfTouch)
+        #read the quest file
         dfQuest = self.load_csv(filePathQust)
         
 
