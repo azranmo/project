@@ -62,13 +62,14 @@ class Model:
         users[str(userID)] = dictOperations
         return users
 
-
-    def build(self,filePath):
-        dfTouches = self.load_csv(filePath)
-        users = self.devide(dfTouches)
+    def build(self, filePathTouches, filePathQust):
+        dfTouch = self.load_csv(filePathTouches)
+        users = self.devide(dfTouch)
+        dfQuest = self.load_csv(filePathQust)
 
 class project:
     model = Model()
+
     # The function give the user the search for the path
     def browse(self):
         file = tkinter.filedialog.askopenfilename()
@@ -81,7 +82,6 @@ class project:
 
     # The function init the gui
     def __init__(self, master):
-
         self.master = master
         self.master.title("out project")
         self.labelDir = Label(master, text="touches Path")
@@ -100,7 +100,6 @@ class project:
         self.browse_button.grid(row=0, column=3)
         self.build_button.grid(row=2, column=1)
         # self.classify_button.grid(row=3, column=1)
-
 
 root = Tk()
 my_gui = project(root)
